@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAB-TEAM Learning Library</title>
+
+<!-- ================== CSS GLOBAL ================== -->
+<style>
+/* ================== RESET ================== */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
+html{scroll-behavior:smooth}
+body{background:#0e0f14;color:#eaeaf0;line-height:1.6}
+
+/* ================== VARIABLES ================== */
+:root{
+  --main:#4f7cff;
+  --secondary:#19c37d;
+  --dark:#0e0f14;
+  --light:#f4f6ff;
+  --card:#151826;
+}
+
+/* ================== NAVIGATION ================== */
+nav{
+  position:fixed;top:0;left:0;width:100%;z-index:1000;
+  background:rgba(14,15,20,.9);backdrop-filter:blur(8px);
+  display:flex;justify-content:space-between;align-items:center;
+  padding:15px 40px;border-bottom:1px solid #1f2233
+}
+nav h2{color:var(--main);font-weight:700}
+nav ul{display:flex;gap:25px;list-style:none}
+nav a{color:#eaeaf0;text-decoration:none;font-weight:500}
+nav a:hover{color:var(--main)}
+
+/* ================== HERO ================== */
+.hero{
+  height:100vh;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(120deg,#0e0f14,#151826,#0e0f14);
+  position:relative;overflow:hidden
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 30% 30%,#4f7cff33,transparent 40%),
+             radial-gradient(circle at 70% 70%,#19c37d33,transparent 40%);
+}
+.hero-content{max-width:900px;text-align:center;z-index:2;padding:20px}
+.hero h1{font-size:3.2rem;margin-bottom:20px}
+.hero-desc{font-size:1.2rem;opacity:.9}
+
+.hero-actions{margin-top:30px;display:flex;gap:20px;justify-content:center}
+.hero-actions button{
+  padding:14px 28px;border:none;border-radius:8px;cursor:pointer;
+  font-size:1rem;font-weight:600
+}
+.hero-actions button:first-child{background:var(--main);color:white}
+.hero-actions .secondary{background:transparent;border:1px solid var(--main);color:var(--main)}
+
+/* ================== CINEMATICS ================== */
+.cinematics{display:flex;justify-content:center;gap:25px;margin-top:50px}
+.cine-card{
+  width:160px;height:100px;border-radius:14px;
+  background:var(--card);display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;font-weight:600;cursor:pointer;
+  transition:.4s;box-shadow:0 10px 25px #00000066
+}
+.cine-card:hover{transform:translateY(-10px) scale(1.05)}
+.reseaux{border:2px solid #4f7cff}
+.web{border:2px solid #19c37d}
+.sql{border:2px solid #ffb703}
+
+/* ================== SECTIONS ================== */
+section{padding:100px 60px}
+#about{text-align:center}
+#about h2{font-size:2.5rem;margin-bottom:20px}
+
+/* ================== LAYOUT ================== */
+.layout{display:grid;grid-template-columns:260px 1fr;gap:30px}
+
+/* ================== SIDEBAR ================== */
+.sidebar{
+  background:var(--card);border-radius:16px;padding:25px;height:fit-content
+}
+.sidebar h3{margin-bottom:20px;color:var(--main)}
+.sidebar button{
+  width:100%;margin-bottom:12px;padding:12px;border:none;border-radius:10px;
+  background:#1f2233;color:white;cursor:pointer;text-align:left
+}
+.sidebar button:hover{background:var(--main)}
+
+/* ================== LIBRARY ================== */
+.library{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:25px;
+  margin-top:30px;
+}
+
+.main-content{
+  display:flex;
+  flex-direction:column;
+}
+
+.course{
+  background:linear-gradient(160deg,#1c1f2b,#24283a);
+  border-radius:16px;
+  padding:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,.4);
+  transition:.35s ease;
+  position:relative;
+}
+
+.course:hover{
+  transform:translateY(-8px) scale(1.02);
+  box-shadow:0 18px 35px rgba(0,0,0,.55);
+}
+
+.course h4{
+  font-size:1.2rem;
+  margin-bottom:8px;
+}
+
+.course p{
+  font-size:.9rem;
+  opacity:.85;
+  margin-bottom:15px;
+}
+
+.modules{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.modules a{
+  background:#0d6efd;
+  padding:10px 14px;
+  border-radius:10px;
+  text-decoration:none;
+  color:#fff;
+  font-size:.85rem;
+  transition:.3s;
+}
+
+.modules a:hover{
+  background:#0b5ed7;
+  transform:translateX(5px);
+}
+.course h4{margin-bottom:10px;color:var(--secondary)}
+.course p{font-size:.95rem;opacity:.85}
+.course a{
+  margin-top:15px;display:inline-block;padding:10px;border-radius:8px;
+  background:var(--main);color:white;text-decoration:none;text-align:center
+}
+
+/* ================== FOOTER ================== */
+footer{text-align:center;padding:40px;background:#0b0c11;opacity:.8}
+</style>
+</head>
+<body>
+
+<!-- ================== NAV ================== -->
+<nav>
+  <h2>MAB-TEAM</h2>
+  <ul>
+    <li><a href="#home">Accueil</a></li>
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#librarySection">Bibliothèque</a></li>
+  </ul>
+</nav>
+
+<!-- ================== HERO ================== -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <h1>Plateforme d’apprentissage numérique</h1>
+    <p class="hero-desc">
+      Une bibliothèque intelligente permettant d’accéder à une archive complète
+      de cours en Réseaux, Développement Web et Bases de données.
+    </p>
+
+    <div class="hero-actions">
+      <button onclick="scrollToSection('librarySection')">Explorer</button>
+      <button class="secondary" onclick="scrollToSection('about')">MAB-TEAM</button>
+    </div>
+
+    <div class="cinematics">
+      <div class="cine-card reseaux" onclick="filterCourses('reseaux')">🌐 Réseaux</div>
+      <div class="cine-card web" onclick="filterCourses('web')">💻 Web</div>
+      <div class="cine-card sql" onclick="filterCourses('sql')">🗄️ SQL</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================== ABOUT ================== -->
+<section id="about">
+  <h2>À propos du projet</h2>
+  <p>
+    Ce site web a été conçu par <strong>MAB-TEAM</strong> afin de proposer une
+    plateforme éducative moderne, structurée et accessible gratuitement.
+    Il sert de passerelle entre les étudiants et leurs archives personnelles
+    de documents pédagogiques.
+  </p>
+</section>
+
+<!-- ================== LIBRARY ================== -->
+<section id="librarySection">
+  <div class="layout">
+
+    <aside class="sidebar">
+  <h3>Spécialités</h3>
+  <button onclick="filterCourses('all')">📚 Tous les cours</button>
+  <button onclick="filterCourses('reseaux')">🌐 Réseaux</button>
+  <button onclick="filterCourses('web')">💻 Web</button>
+  <button onclick="filterCourses('sql')">🗄️ Bases de données</button>
+  <button onclick="filterCourses('algo')">🧠 Algorithmique</button>
+  <button onclick="filterCourses('c')">⚙️ Programmation C</button>
+  <button onclick="filterCourses('git')">🔧 Git</button>
+  <button onclick="filterCourses('linux')">🐧 Linux</button>
+  <button onclick="filterCourses('windows')">🪟 Windows</button>
+</aside>
+<div class="main-content">
+    <div class="library-controls" style="margin-bottom:25px">
+  <label><input type="checkbox" onchange="toggleFeature('pdf')"> PDF</label>
+  <label style="margin-left:15px"><input type="checkbox" onchange="toggleFeature('zip')"> ZIP</label>
+  <label style="margin-left:15px"><input type="checkbox" onchange="toggleFeature('beginner')"> Débutant</label>
+  <label style="margin-left:15px"><input type="checkbox" onchange="toggleFeature('advanced')"> Avancé</label>
+  <label style="margin-left:15px"><input type="checkbox" onchange="toggleFeature('free')"> Gratuit</label>
+</div>
+
+<div class="library" id="library">
+
+  <!-- ===== MODULE RÉSEAUX ===== -->
+  <div class="course">
+    <h4>Module Réseaux Informatiques</h4>
+    <p>TCP/IP, routage, protocoles et bases réseaux.</p>
+    <div class="modules">
+      <!-- AJOUT MANUEL DES LIENS -->
+      <a href="docs/reseaux/tcpip.pdf" download>📘 TCP/IP (PDF)</a>
+      <a href="docs/reseaux/routage.pdf" download>📘 Routage (PDF)</a>
+    </div>
+  </div>
+
+  <!-- ===== MODULE WEB ===== -->
+  <div class="course">
+    <h4>Module Développement Web</h4>
+    <p>HTML, CSS et bases du web moderne.</p>
+    <div class="modules">
+      <a href="docs/web/html.pdf" download>📘 HTML (PDF)</a>
+      <a href="docs/web/css.pdf" download>📘 CSS (PDF)</a>
+    </div>
+  </div>
+
+  <!-- ===== MODULE BASES DE DONNÉES ===== -->
+  <div class="course">
+    <h4>Module Bases de Données</h4>
+    <p>SQL, requêtes, relations et normalisation.</p>
+    <div class="modules">
+      <a href="docs/sql/sql.pdf" download>📘 SQL (PDF)</a>
+    </div>
+  </div>
+
+  <!-- ===== MODULE ALGORITHMIQUE ===== -->
+  <div class="course">
+    <h4>Module Algorithmique</h4>
+    <p>Logique, algorithmes et résolution de problèmes.</p>
+    <div class="modules">
+      <a href="docs/algo/algorithmique.pdf" download>📘 Algorithmique (PDF)</a>
+    </div>
+  </div>
+
+  <!-- ===== MODULE LANGAGE C ===== -->
+  <div class="course">
+    <h4>Module Programmation C</h4>
+    <p>Langage C, pointeurs, structures et mémoire.</p>
+    <div class="modules">
+      <a href="docs/c/c_base.pdf" download>📘 C – Bases (PDF)</a>
+      <a href="docs/c/c_avance.pdf" download>📘 C – Avancé (PDF)</a>
+    </div>
+  </div>
+
+  <!-- ===== MODULE GIT ===== -->
+  <div class="course">
+    <h4>Module Git</h4>
+    <p>Gestion de versions et collaboration.</p>
+    <div class="modules">
+      <a href="docs/git/git_commands.pdf" download>📘 Commandes Git (PDF)</a>
+    </div>
+  </div>
+
+  <!-- ===== MODULE LINUX ===== -->
+  <div class="course">
+    <h4>Module Linux</h4>
+    <p>Commandes système et administration de base.</p>
+    <div class="modules">
+      <a href="docs/linux/linux_commands.pdf" download>📘 Linux (PDF)</a>
+    </div>
+  </div>
+
+  <!-- ===== MODULE WINDOWS ===== -->
+  <div class="course">
+    <h4>Module Windows</h4>
+    <p>CMD et PowerShell.</p>
+    <div class="modules">
+      <a href="docs/windows/windows_commands.pdf" download>📘 Windows (PDF)</a>
+    </div>
+  </div>
+</div>
+</div>
+
+  </div>
+</section>
+
+<footer>
+  © 2025 – MAB-TEAM | Plateforme d’apprentissage numérique
+</footer>
+
+<!-- ================== JAVASCRIPT ================== -->
+<script>
+// ================== SCROLL ==================
+function scrollToSection(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
+
+// ================== DATA ==================
+// ======================================================
+// 📚 BIBLIOTHÈQUE DE COURS – AJOUT MANUEL DANS LE CODE
+// 👉 POUR AJOUTER UN DOCUMENT :
+// 1) Copier un bloc ci‑dessous
+// 2) Modifier title, desc, cat et link
+// 3) Sauvegarder et recharger la page
+// ======================================================
+
+const courses = [
+
+  // ================== RÉSEAUX ==================
+  {
+    title: 'TCP/IP',
+    desc: 'Cours complet sur les réseaux informatiques',
+    cat: 'reseaux',
+    features: ['pdf','beginner','free'],
+    link: 'Bibliothéque/réseaux'
+  },
+  {
+    title: 'Routage',
+    desc: 'Protocoles de routage statique et dynamique',
+    cat: 'reseaux',
+    features: ['pdf','advanced','free'],
+    link: 'Bibliothéque/réseaux'
+  },
+
+  // ================== WEB ==================
+  {
+    title: 'HTML5 – Débutant',
+    desc: 'Bases du langage HTML avec exemples',
+    cat: 'web',
+    features: ['pdf','beginner','free'],
+    link: 'Bibliothéque/html'
+  },
+  {
+    title: 'CSS3 – Design',
+    desc: 'Mise en page, Flexbox et Grid',
+    cat: 'web',
+    features: ['pdf','advanced','free'],
+    link: 'Bibliothéque/css'
+  },
+
+  // ================== BASES DE DONNÉES ==================
+  {
+    title: 'SQL – Fondamentaux',
+    desc: 'Bases des requêtes SQL et relations',
+    cat: 'sql',
+    features: ['pdf','beginner','free'],
+    link: 'Bibliothéque/sql'
+  },
+
+  // ================== ALGORITHMIQUE ==================
+  {
+    title: 'Algorithmique – Bases',
+    desc: 'Structures de contrôle, tableaux, fonctions',
+    cat: 'algo',
+    features: ['pdf','beginner','free'],
+    link: 'Bibliothéque/algorithme et programation C'
+  },
+
+  // ================== PROGRAMMATION C ==================
+  {
+    title: 'Langage C – Avancé',
+    desc: 'Pointeurs, structures et gestion mémoire',
+    cat: 'c',
+    features: ['pdf','advanced','free'],
+    link: 'Bibliothéque/algorithme et programation C'
+  },
+
+  // ================== GIT ==================
+  {
+    title: 'Git – Commandes essentielles',
+    desc: 'init, add, commit, merge',
+    cat: 'git',
+    features: ['pdf','beginner','free'],
+    link: 'Bibliothéque/métodologie de devlopement'
+  },
+
+  // ================== LINUX ==================
+  {
+    title: 'Linux – Commandes système',
+    desc: 'ls, cd, chmod, bash',
+    cat: 'linux',
+    features: ['pdf','advanced','free'],
+    link: 'Bibliothéque/SE/linux'
+  },
+
+  // ================== WINDOWS ==================
+  {
+    title: 'Windows – Commandes système',
+    desc: 'CMD et PowerShell',
+    cat: 'windows',
+    features: ['pdf','beginner','free'],
+    link: 'Bibliothéque/SE/windows'
+  }
+];
+
+// ================== RENDER ==================
+const library=document.getElementById('library');
+let current='all';
+
+let activeFeatures=[];
+
+function render(){
+  library.innerHTML='';
+
+  courses
+    .filter(c => current==='all' || c.cat===current)
+    .filter(c => activeFeatures.every(f => c.features.includes(f)))
+    .forEach(c => {
+      const div = document.createElement('div');
+      div.classList.add('course');
+
+
+      const badges=c.features.map(f=>`<span style="font-size:.75rem;background:#1f2233;padding:4px 8px;border-radius:6px;margin-right:5px">${f}</span>`).join('');
+
+      div.innerHTML=`
+        <h4>${c.title}</h4>
+        <p>${c.desc}</p>
+        <div style="margin:8px 0">${badges}</div>
+        <a href="${c.link}" download>Télécharger</a>
+      `;
+
+      library.appendChild(div);
+    });
+}
+
+function toggleFeature(feature){
+  if(activeFeatures.includes(feature)){
+    activeFeatures=activeFeatures.filter(f=>f!==feature);
+  } else {
+    activeFeatures.push(feature);
+  }
+  render();
+}
+
+function filterCourses(cat){current=cat;render()}
+
+render();
+
+  document.getElementById('docTitle').value='';
+  document.getElementById('docDesc').value='';
+  document.getElementById('docFile').value='';
+
+
+render();
+</script>
+
+</body>
+</html>
